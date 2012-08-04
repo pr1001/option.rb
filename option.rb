@@ -6,6 +6,7 @@ end
 
 class Option
   include Enumerable
+  include Comparable
 end
 
 class None < Option
@@ -88,6 +89,26 @@ class Some < Option
   end
   # compatible with Ruby's stupid standards
   alias_method :select, :filter
+  
+  def == other
+    other.is_a?(Some) and @val == other.get
+  end
+  
+  def <=> other
+    if other.is_a?(Some)
+      @val <=> other.get
+    else
+      0
+    end
+  end
+  
+  def eql? other
+    self == other
+  end
+  
+  def hash
+    @val.hash
+  end
 end
 
 def tryo &block
