@@ -89,3 +89,11 @@ class Some < Option
   # compatible with Ruby's stupid standards
   alias_method :select, :filter
 end
+
+def tryo &block
+  begin
+    Option(block.call)
+  rescue
+    None
+  end
+end
