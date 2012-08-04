@@ -109,6 +109,10 @@ class Some < Option
   def hash
     @val.hash
   end
+  
+  def to_s
+    "Some(#{@val.to_s})"
+  end
 end
 
 def tryo &block
