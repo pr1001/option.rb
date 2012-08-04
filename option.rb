@@ -12,7 +12,7 @@ end
 class None < Option
   include Singleton
   
-  def get
+  def self.get
     raise "None has no value"
   end
   
