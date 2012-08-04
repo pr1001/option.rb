@@ -11,6 +11,19 @@ end
 class None < Option
   include Singleton
   
+  def get
+    raise "None has no value"
+  end
+  
+  # can either take a normal argument or a block if laziness is desired
+  def self.getOrElse *args
+    if not args.empty?
+      args.first
+    else
+      yield if block_given?
+    end
+  end
+  
   def self.each &block
     self
   end
@@ -41,6 +54,15 @@ end
 class Some < Option
   def initialize val
     @val = val  
+  end
+  
+  def get
+    @val
+  end
+  
+  # can either take a normal argument or a block if laziness is desired
+  def getOrElse *args
+    @val
   end
   
   def each &block
